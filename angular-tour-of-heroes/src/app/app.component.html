@@ -1,0 +1,16 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<el-container id="app">
+        <div el-header id="header">
+          <img src="assets/background.png" width="100%" alt="aa"/>
+          <p style="position: absolute; top: 20px; left: 60px; color:red; font-size:25px">dbh</p>
+        </div>
+        
+</el-container>
+<el-main>
+        <el-menu [model]="0" (modelChange)="handle(event)" class="el-menu-demo" mode="horizontal">
+                <el-menu-item index="1">Star Wars API</el-menu-item>
+                <el-menu-item index="2">Locale Persons</el-menu-item>
+       </el-menu>
+</el-main> 
+
+<app-heroes></app-heroes>

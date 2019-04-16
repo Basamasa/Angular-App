@@ -1,0 +1,22 @@
+.el-select-dropdown__item{
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+.el-popover{
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+.el-date-picker {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+.el-dropdown-menu__item {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+#app {
+  height: 910px;
+  background: rgb(250, 250, 250);
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#header{
+  overflow: hidden;
+}
