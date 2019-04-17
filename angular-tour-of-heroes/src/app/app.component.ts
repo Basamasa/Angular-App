@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {PersonComponent} from './person.component'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +6,5 @@ import {PersonComponent} from './person.component'
 })
 export class AppComponent {
   title = 'Tour of Heroes';
+  
 }
