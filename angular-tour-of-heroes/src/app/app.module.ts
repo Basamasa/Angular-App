@@ -8,6 +8,7 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 import { ElModule } from 'element-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatSortModule} from '@angular/material';
 
 
 @NgModule({
@@ -22,7 +23,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     ElModule,
     ElModule.forRoot(),
-    FormsModule
+    FormsModule,
+    MatButtonModule, 
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule
+  ],
+  exports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ElModule,
+    FormsModule,
+    MatButtonModule, 
+    MatTableModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

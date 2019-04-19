@@ -1,31 +1,19 @@
-<el-table [model]="tableData" [stripe]="true" [border]= true [scroll-x]="true" center="all">
-  <el-table-column model-key="name" label="姓名" width="140" >
-  </el-table-column>
-  <el-table-column model-key="date" label="日期" width="140">
-  </el-table-column>
-  <el-table-column model-key="address" label="地址" width="140" [render-html]="true">
-  </el-table-column>
-   <el-table-column label="操作" width="120">
-    <ng-template #slot let-scope="scope">
-      <el-button type="text" size="small" (click)="handle(scope)">删除</el-button>
-    </ng-template>
-  </el-table-column>
-</el-table>
 
-<el-table [model]="getData()" 
-          [stripe]="true" 
-          [border]= true 
-          [scroll-x]="true" 
-          center="all"
->
-  <!-- <el-table-column 
-          *ngFor="let column of columns.getColumns"
-          model-key="column.key"
-          label="column.label"
-  >
-  </el-table-column> -->
-</el-table>
+<button mat-raised-button (click)="addRow()"> Add </button>
+<button mat-raised-button (click)="remove()"> Remove </button>
+<button mat-raised-button (click)="shuffle()"> Shuffle </button>
 
-<ul *ngFor="let column of columns.getColumns(); index as i">
-  <li>{{i+1}} {{column}}</li>
- </ul>
+ <table mat-table [dataSource]="data" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="{{co}}" *ngFor="let co of displayedColumns" mat-sort-header>
+    <th mat-header-cell *matHeaderCellDef> {{co.toUpperCase()}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[co]}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)" class="nima"></tr>
+</table>
+
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+</mat-form-field>

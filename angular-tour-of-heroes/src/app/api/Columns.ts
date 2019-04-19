@@ -35,6 +35,7 @@ export class Column {
   }
 }
 
+
 export class Columns {
   private columns = new Array<Column>();
 

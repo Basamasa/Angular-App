@@ -1,5 +1,10 @@
-import { Component, OnInit , Input} from '@angular/core';
-import { Columns } from '../api/Columns';
+import { Component, OnInit , Input, ViewChild} from '@angular/core';
+import { Columns} from '../api/Columns';
+import { PersonService , Person} from '../services/Person';
+import { MatSort, MatTableDataSource } from '@angular/material';
+
+
+
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
@@ -12,14 +17,32 @@ export class PersonComponent<T> implements OnInit {
   width: string;
   filterText: string;
   onSelectionChanged: Function;
-  
-  handle(ref: any): void {
-    // console.log(ref.index)
-    // console.log(ref.rowData)
-    // console.log(ref.innerHTML)
-    ref.destroy()
-    
+  persons: PersonService;
+
+  displayedColumns: string[] = ['id', 'first', 'second', 'city', 'birthday', 'paid'];
+  data: Array<Person> = this.get();
+
+  get(): Array<Person>{
+    return PersonService.createPersons(10);
   }
+  dataSource = new MatTableDataSource(this.data);
+  
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  // addColumns(): Array<Column>{
+  //   this.columns = Columns.create();
+  //   this.columns.add("id");
+  //   this.columns.add("first");
+  //   this.columns.add("second");
+  //   this.columns.add("city");
+  //   this.columns.add("birthday");
+  //   return this.columns.getColumns();
+  // }
+
+  // handle(ref: any): void {
+  //   ref.destroy()
+  // }
   // get listView (): Table {
   //   return (this.tableView as Table)
   // }
@@ -70,6 +93,10 @@ export class PersonComponent<T> implements OnInit {
     return false
   }
 
+  selectRow(row) {
+    console.log(row);
+  }
+
   setSelection (row: T) {
     if (this.onSelectionChanged) {
       this.onSelectionChanged(row)
@@ -83,28 +110,12 @@ export class PersonComponent<T> implements OnInit {
     return val
   }
 
-
-  tableData: any[] = [{
-    name: '水爷',
-    date: '2017-08-19',
-    address: '上海市普陀区金沙江路 1518 弄',
-  }, {
-    name: '水爷',
-    date: '2017-08-20',
-    address: '上海市普陀区金沙江路 1518 弄',
-  }, {
-    name: '水爷',
-    date: '2017-08-21',
-    address: '上海市普陀区金沙江路 1518 弄',
-  }, {
-    name: '水爷',
-    date: '2017-08-22',
-    address: '上海市普陀区金沙江路 1510 弄',
-  }]
-
   constructor() { }
 
+  @ViewChild(MatSort) sort: MatSort;
+
   ngOnInit() {
+    this.dataSource.sort = this.sort;
   }
 
 }
