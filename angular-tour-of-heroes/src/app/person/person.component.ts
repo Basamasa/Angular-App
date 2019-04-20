@@ -15,8 +15,6 @@ export class PersonComponent<T> implements OnInit {
   columns: Columns;
   height: string;
   width: string;
-  filterText: string;
-  onSelectionChanged: Function;
   persons: PersonService;
   selectedPerson: Person;
 
@@ -49,48 +47,19 @@ export class PersonComponent<T> implements OnInit {
   // }
 
   addRow () {
-    console.log(this.data);
     this.data.push(new Person ( 0,""));
+    this.dataSource = new MatTableDataSource(this.data);
+  }
+
+  removeRow () {
+    console.log(this.data);
+    this.data.filter(s => s !== this.selectedPerson);
     this.dataSource = new MatTableDataSource(this.data);
     console.log(this.data);
   }
 
-  // removeRow (row: T) {
-  //   let index: number = this.table.indexOf(row)
-  //   if (index >= 0) {
-  //     this.table.splice(index, 1)
-  //     this.listView.setCurrentRow(this.table[index])
-  //   }
-  // }
+  copyRow() {
 
-  getRowIndex (row: T): number {
-    return this.table.indexOf(row)
-  }
-
-  private getData (): T[] {
-    if (this.table) {
-      return this.table.filter(row => this.filterBySearchText(row))
-    }
-    return []
-  }
-
-  filterBySearchText (row: any): boolean {
-    var pattern = this.filterText
-    if (!pattern) {
-      return true
-    }
-    var content
-    var found = false
-    pattern = pattern.toLowerCase()
-    this.columns.getColumns().forEach(col => {
-      content = row[col.key]
-      if (typeof (content) === 'string') {
-        if (content.toLowerCase().includes(pattern)) {
-          found = true
-        }
-      }
-    })
-    return found
   }
 
   isLoading (): boolean {
@@ -100,12 +69,6 @@ export class PersonComponent<T> implements OnInit {
   selectRow(row){
     console.log(row);
     this.selectRow = row;
-  }
-
-  setSelection (row: T) {
-    if (this.onSelectionChanged) {
-      this.onSelectionChanged(row)
-    }
   }
 
   cellFormatter (row: any, col: any, val: any) {

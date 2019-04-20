@@ -1,7 +1,10 @@
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+</mat-form-field>
 
 <button mat-raised-button (click)="addRow()"> Add </button>
-<button mat-raised-button (click)="remove()"> Remove </button>
-<button mat-raised-button (click)="shuffle()"> Shuffle </button>
+<button mat-raised-button (click)="removeRow()"> Remove </button>
+<button mat-raised-button (click)="copyRow()"> Copy</button>
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
@@ -13,7 +16,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)" class="nima"></tr>
 </table>
-
-<mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-</mat-form-field>
