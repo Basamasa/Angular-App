@@ -18,6 +18,7 @@ export class PersonComponent<T> implements OnInit {
   filterText: string;
   onSelectionChanged: Function;
   persons: PersonService;
+  selectedPerson: Person;
 
   displayedColumns: string[] = ['id', 'first', 'second', 'city', 'birthday', 'paid'];
   data: Array<Person> = this.get();
@@ -47,8 +48,11 @@ export class PersonComponent<T> implements OnInit {
   //   return (this.tableView as Table)
   // }
 
-  addRow (row: T, index: number) {
-    this.table.splice(index, 0, row)
+  addRow () {
+    console.log(this.data);
+    this.data.push(new Person ( 0,""));
+    this.dataSource = new MatTableDataSource(this.data);
+    console.log(this.data);
   }
 
   // removeRow (row: T) {
@@ -93,8 +97,9 @@ export class PersonComponent<T> implements OnInit {
     return false
   }
 
-  selectRow(row) {
+  selectRow(row){
     console.log(row);
+    this.selectRow = row;
   }
 
   setSelection (row: T) {

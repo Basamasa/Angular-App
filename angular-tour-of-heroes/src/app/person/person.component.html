@@ -3,7 +3,7 @@
 <button mat-raised-button (click)="remove()"> Remove </button>
 <button mat-raised-button (click)="shuffle()"> Shuffle </button>
 
- <table mat-table [dataSource]="data" matSort class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
   <ng-container matColumnDef="{{co}}" *ngFor="let co of displayedColumns" mat-sort-header>
     <th mat-header-cell *matHeaderCellDef> {{co.toUpperCase()}} </th>
