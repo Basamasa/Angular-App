@@ -17,8 +17,18 @@ table {
   .nima:active {
     background: #efefef;
   }
+
+  .nima:focus {
+    background-color: #638b88;
+    outline: 0; /*remove outline*/
+  }
   
   .mat-form-field {
     font-size: 14px;
     width: 100%;
+  }
+
+  .example-container {
+    height: 400px;
+    overflow: auto;
   }

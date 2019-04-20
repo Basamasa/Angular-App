@@ -18,7 +18,7 @@ export class PersonComponent<T> implements OnInit {
   persons: PersonService;
   selectedPerson: Person;
 
-  displayedColumns: string[] = ['id', 'first', 'second', 'city', 'birthday', 'paid'];
+  displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
   data: Array<Person> = this.get();
 
   get(): Array<Person>{

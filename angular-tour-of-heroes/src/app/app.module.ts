@@ -28,7 +28,8 @@ import { MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, Ma
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    MatSortModule
   ],
   exports: [
     BrowserModule,
@@ -41,7 +42,8 @@ import { MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, Ma
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
