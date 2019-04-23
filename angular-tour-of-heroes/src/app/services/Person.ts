@@ -6,7 +6,7 @@ export class Person {
     nickname = '';
     city = '';
     male=false;
-    birthday!:Date;
+    birthday:Date;
 
     constructor (id: number, first: string) {
       this.id = id

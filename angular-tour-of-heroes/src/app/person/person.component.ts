@@ -1,8 +1,8 @@
 import { Component, OnInit , Input, ViewChild} from '@angular/core';
-import { Columns} from '../api/Columns';
+import { Columns, Column} from '../api/Columns';
 import { PersonService , Person} from '../services/Person';
 import { MatSort, MatTableDataSource } from '@angular/material';
-
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 
 
 @Component({
@@ -17,9 +17,12 @@ export class PersonComponent<T> implements OnInit {
   width: string;
   persons: PersonService;
   selectedPerson: Person;
-
+  indexOfSelected: number;
   displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
   data: Array<Person> = this.get();
+
+  
+  date : Date;
 
   get(): Array<Person>{
     return PersonService.createPersons(10);
@@ -29,53 +32,53 @@ export class PersonComponent<T> implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  // addColumns(): Array<Column>{
-  //   this.columns = Columns.create();
-  //   this.columns.add("id");
-  //   this.columns.add("first");
-  //   this.columns.add("second");
-  //   this.columns.add("city");
-  //   this.columns.add("birthday");
-  //   return this.columns.getColumns();
-  // }
+  addColumns(): Array<Column>{
+    this.columns = Columns.create();
+    this.columns.add("id");
+    this.columns.add("first");
+    this.columns.add("second");
+    this.columns.add("paid");
+    this.columns.add("nickname");
+    this.columns.add("city");
+    this.columns.add("male");
+    this.columns.add("birthday");
+    return this.columns.getColumns();
+  }
 
-  // handle(ref: any): void {
-  //   ref.destroy()
-  // }
-  // get listView (): Table {
-  //   return (this.tableView as Table)
-  // }
 
   addRow () {
-    this.data.push(new Person ( 0,""));
-    this.dataSource = new MatTableDataSource(this.data);
+
+    this.data.splice(this.indexOfSelected, 0, new Person (0, "NEW"));
+    //this.dataSource = new MatTableDataSource(this.data);
+    this.quickSort();
   }
 
   removeRow () {
-    console.log(this.data);
-    this.data.filter(s => s !== this.selectedPerson);
-    this.dataSource = new MatTableDataSource(this.data);
-    console.log(this.data);
+    this.data = this.data.filter(s => s !== this.selectedPerson);
+    //this.dataSource = new MatTableDataSource(this.data);
+    this.quickSort();
   }
 
   copyRow() {
-
+    this.data.splice(this.indexOfSelected, 0, this.selectedPerson);
+    this.quickSort();
   }
 
-  isLoading (): boolean {
-    return false
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    console.log(event.value);
+    //this.data.map(s => if(s === this.selectedPerson){} else );
+    this.selectedPerson.birthday = event.value;
   }
 
-  selectRow(row){
-    console.log(row);
-    this.selectRow = row;
+  quickSort() {
+    this.dataSource.sort = this.sort;
   }
 
-  cellFormatter (row: any, col: any, val: any) {
-    if (val instanceof Date) {
-      return val.toLocaleDateString()
-    }
-    return val
+  selectRow(row, i){
+    console.log(row , i);
+    this.selectedPerson = row;
+    this.indexOfSelected = i
+    this.date = this.selectedPerson.birthday;
   }
 
   constructor() { }
@@ -83,7 +86,7 @@ export class PersonComponent<T> implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+    this.quickSort();
   }
 
 }
