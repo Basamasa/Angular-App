@@ -25,13 +25,15 @@ export class PersonComponent<T> implements OnInit {
   date : Date;
 
   get(): Array<Person>{
-    return PersonService.createPersons(10);
+    return PersonService.createPersons(500);
   }
+
   dataSource = new MatTableDataSource(this.data);
   
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
   addColumns(): Array<Column>{
     this.columns = Columns.create();
     this.columns.add("id");
@@ -47,7 +49,6 @@ export class PersonComponent<T> implements OnInit {
 
 
   addRow () {
-
     this.data.splice(this.indexOfSelected, 0, new Person (0, "NEW"));
     //this.dataSource = new MatTableDataSource(this.data);
     this.quickSort();
@@ -55,19 +56,20 @@ export class PersonComponent<T> implements OnInit {
 
   removeRow () {
     this.data = this.data.filter(s => s !== this.selectedPerson);
-    //this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource = new MatTableDataSource(this.data);
     this.quickSort();
   }
 
   copyRow() {
     this.data.splice(this.indexOfSelected, 0, this.selectedPerson);
+    this.dataSource = new MatTableDataSource(this.data);
     this.quickSort();
   }
 
   addEvent(event: MatDatepickerInputEvent<Date>) {
     console.log(event.value);
     //this.data.map(s => if(s === this.selectedPerson){} else );
-    this.selectedPerson.birthday = event.value;
+    //this.selectedPerson.birthday = event.value;
   }
 
   quickSort() {
@@ -80,7 +82,7 @@ export class PersonComponent<T> implements OnInit {
     this.indexOfSelected = i
     this.date = this.selectedPerson.birthday;
   }
-
+  
   constructor() { }
 
   @ViewChild(MatSort) sort: MatSort;
