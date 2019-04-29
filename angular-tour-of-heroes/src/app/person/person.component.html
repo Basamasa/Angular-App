@@ -8,65 +8,60 @@
 <button mat-raised-button (click)="copyRow()"> Copy</button>
 </div>
 
-<div class = "example-container mat-elevation-z8">
-<table mat-table [dataSource]="dataSource" matSort>
-  <ng-container matColumnDef={{co.label}} *ngFor="let co of addColumns()">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{co.label.toUpperCase()}} </th>
-    <td mat-cell *matCellDef="let element" data-row="date"> {{element[co.label]}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index;" (click)="selectRow(row,i)"  class="nima" tabindex="0"></tr>
-</table>
-</div>
+<app-list-pane [columns]="addColumns()"
+               [displayedColumns]="displayedColumns"
+               [dataSource]="dataSource"></app-list-pane>
 
 <br>
 
-<ng-container *ngFor="let item of data" >
-  <div *ngIf="item == selectedPerson">
-  <mat-form-field>
+<ng-container *ngFor="let item of dataSource.data" >
+ <div *ngIf="item == selectedPerson">
+   <mat-form-field>
     <input matInput placeholder="Id" [(ngModel)]="item.id">
-  </mat-form-field>
-&nbsp;
-<mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Data of birth" [(ngModel)]="item.birthday" (dateInput)="addEvent($event)">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-&nbsp;
-<mat-checkbox>Male</mat-checkbox>
+   </mat-form-field>
+ &nbsp;
+ <mat-form-field>
+   <input matInput [matDatepicker]="picker" placeholder="Data of birth" [(ngModel)]="item.birthday" (dateInput)="addEvent($event)">
+   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+   <mat-datepicker #picker></mat-datepicker>
+ </mat-form-field>
+ &nbsp;
+ <mat-checkbox>Male</mat-checkbox>
 
-<p> Adress </p>
-<mat-form-field>
+ <p> Adress </p>
+ <mat-form-field>
     <input matInput placeholder="First name" [(ngModel)]="item.first">
-</mat-form-field>
-&nbsp;
+ </mat-form-field>
+ &nbsp;
 
-<mat-form-field>
+ <mat-form-field>
     <input matInput placeholder="Second name" [(ngModel)]="item.second">
-</mat-form-field>
-&nbsp;
-<mat-form-field>
+ </mat-form-field>
+ &nbsp;
+ <mat-form-field>
     <input matInput placeholder="City" [(ngModel)]="item.city">
-</mat-form-field>
-&nbsp;
+ </mat-form-field>
+ &nbsp;
 
-<p> Other </p>
-<mat-form-field>
+ <p> Other </p>
+ <mat-form-field>
     <input matInput placeholder="Income" [(ngModel)]="item.paid">
-</mat-form-field>
-&nbsp;
+ </mat-form-field>
+ &nbsp;
 
-<mat-form-field>
+ <mat-form-field>
     <input matInput placeholder="Nickname" [(ngModel)]="item.second">
-</mat-form-field>
-&nbsp;
-<mat-form-field>
-    <input matInput placeholder="Adress" [(ngModel)]="item.city">
-</mat-form-field>
-&nbsp;
-
-</div>
+ </mat-form-field>
+ &nbsp;
+ <mat-form-field>
+    <mat-label>Adress</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let ad of adressess" [value]="ad.guiRep">
+            {{ad.guiRep()}}
+          </mat-option>
+    </mat-select>
+  </mat-form-field>
+ &nbsp;
+<p>{{item.id}}</p>
+ </div>
 </ng-container>
-
-

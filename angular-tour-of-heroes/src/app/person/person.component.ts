@@ -1,8 +1,10 @@
-import { Component, OnInit , Input, ViewChild} from '@angular/core';
+import { Component, OnInit , Input, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { Columns, Column} from '../api/Columns';
 import { PersonService , Person} from '../services/Person';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { Adress , AdressService} from '../services/Adress';
+import { ListPaneComponent } from '../list-pane/list-pane.component';
 
 
 @Component({
@@ -11,25 +13,16 @@ import {MatDatepickerInputEvent} from '@angular/material/datepicker';
   styleUrls: ['./person.component.css']
 })
 export class PersonComponent<T> implements OnInit {
-  table: T[];
+
   columns: Columns;
-  height: string;
-  width: string;
-  persons: PersonService;
   selectedPerson: Person;
   indexOfSelected: number;
+  adressess: Array<Adress> = AdressService.createAdresses(8);
   displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
-  data: Array<Person> = this.get();
-
-  
-  date : Date;
-
-  get(): Array<Person>{
-    return PersonService.createPersons(500);
-  }
-
+  data: Array<Person> = PersonService.createPersons(10);
   dataSource = new MatTableDataSource(this.data);
   
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -49,8 +42,9 @@ export class PersonComponent<T> implements OnInit {
 
 
   addRow () {
+    console.log();
     this.data.splice(this.indexOfSelected, 0, new Person (0, "NEW"));
-    //this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource = new MatTableDataSource(this.data);
     this.quickSort();
   }
 
@@ -72,22 +66,26 @@ export class PersonComponent<T> implements OnInit {
     //this.selectedPerson.birthday = event.value;
   }
 
+
   quickSort() {
     this.dataSource.sort = this.sort;
   }
 
   selectRow(row, i){
-    console.log(row , i);
+    console.log(row , i, this.dataSource.data);
     this.selectedPerson = row;
     this.indexOfSelected = i
-    this.date = this.selectedPerson.birthday;
   }
   
-  constructor() { }
+  
+  constructor(private changeDetectorRefs: ChangeDetectorRef) { }
 
   @ViewChild(MatSort) sort: MatSort;
 
+
+
   ngOnInit() {
+
     this.quickSort();
   }
 

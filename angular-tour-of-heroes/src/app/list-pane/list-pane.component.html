@@ -1,0 +1,11 @@
+<div class = "example-container mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef={{co.label}} *ngFor="let co of columns">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{co.label.toUpperCase()}} </th>
+    <td mat-cell *matCellDef="let element" data-row="date"> {{element[co.label]}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index;" (click)="selectRow(row,i)"  class="nima" tabindex="0"></tr>
+</table>
+</div>

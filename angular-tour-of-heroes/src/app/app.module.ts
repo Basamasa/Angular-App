@@ -9,13 +9,20 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { ElModule } from 'element-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule, MatDatepickerModule, MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatSortModule, MatCheckboxModule} from '@angular/material';
+import { ListPaneComponent } from './list-pane/list-pane.component';
+import { ButtonPaneComponent } from './button-pane/button-pane.component';
+import { EditPaneComponent } from './edit-pane/edit-pane.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroDetailComponent,
-    routingComponents
+    routingComponents,
+    ListPaneComponent,
+    ButtonPaneComponent,
+    EditPaneComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,8 @@ import { MatNativeDateModule, MatDatepickerModule, MatButtonModule, MatTableModu
     MatSortModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
   ],
 
   providers: [],
