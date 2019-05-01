@@ -15,8 +15,6 @@ import { ListPaneComponent } from '../list-pane/list-pane.component';
 export class PersonComponent<T> implements OnInit {
 
   columns: Columns;
-  selectedPerson: Person;
-  indexOfSelected: number;
   adressess: Array<Adress> = AdressService.createAdresses(8);
   displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
   data: Array<Person> = PersonService.createPersons(10);
@@ -42,22 +40,21 @@ export class PersonComponent<T> implements OnInit {
 
 
   addRow () {
-    console.log();
-    this.data.splice(this.indexOfSelected, 0, new Person (0, "NEW"));
+    this.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
     this.dataSource = new MatTableDataSource(this.data);
-    this.quickSort();
+    this.dataSource.sort = this.child.sort;
   }
 
   removeRow () {
-    this.data = this.data.filter(s => s !== this.selectedPerson);
+    this.data = this.data.filter(s => s != this.child.selectedPerson);
     this.dataSource = new MatTableDataSource(this.data);
-    this.quickSort();
+    this.dataSource.sort = this.child.sort;
   }
 
   copyRow() {
-    this.data.splice(this.indexOfSelected, 0, this.selectedPerson);
+    this.data.splice(this.child.indexOfSelected, 0, this.child.selectedPerson);
     this.dataSource = new MatTableDataSource(this.data);
-    this.quickSort();
+    this.dataSource.sort = this.child.sort;
   }
 
   addEvent(event: MatDatepickerInputEvent<Date>) {
@@ -66,27 +63,16 @@ export class PersonComponent<T> implements OnInit {
     //this.selectedPerson.birthday = event.value;
   }
 
-
-  quickSort() {
-    this.dataSource.sort = this.sort;
-  }
-
-  selectRow(row, i){
-    console.log(row , i, this.dataSource.data);
-    this.selectedPerson = row;
-    this.indexOfSelected = i
-  }
   
   
   constructor(private changeDetectorRefs: ChangeDetectorRef) { }
 
   @ViewChild(MatSort) sort: MatSort;
-
+  @ViewChild(ListPaneComponent) child: ListPaneComponent;
 
 
   ngOnInit() {
-
-    this.quickSort();
+    
   }
 
 }
