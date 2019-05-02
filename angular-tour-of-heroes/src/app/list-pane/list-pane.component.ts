@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Output } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, ChangeDetectorRef } from '@angular/core';
 import { Columns } from '../api/Columns';
 import { PersonService, Person } from '../services/Person';
 import { Adress, AdressService } from '../services/Adress';
@@ -27,10 +27,11 @@ export class ListPaneComponent implements OnInit {
     this.indexOfSelected = i
   }
 
-  constructor() { }
+  constructor(private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;;
+    this.dataSource.sort = this.sort;
+    this.changeDetectorRefs.detectChanges;
   }
 
 }

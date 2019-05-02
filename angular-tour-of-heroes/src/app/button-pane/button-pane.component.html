@@ -1,3 +1,7 @@
-<p>
-  button-pane works!
-</p>
+<span *ngFor="let co of commands; trackBy:trackByIndex">
+<button mat-raised-button  (click)="emitCommand(co)">
+   {{co.label}} 
+  </button>
+  &nbsp;
+  </span>
+

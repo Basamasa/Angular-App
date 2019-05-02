@@ -29,7 +29,8 @@ export class Command {
   }
   execute () {
     if (this.callback) {
-      this.callback(this)
+      this.callback(this);
+      console.log(this.callback);
     } else {
       console.log("no callback in command: '" + this.label + "'")
     }
@@ -69,5 +70,9 @@ export class Commands {
 
   static create () {
     return new Commands()
+  }
+
+  getCommads() : Array<Command>{
+    return this.commands;
   }
 }

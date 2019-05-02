@@ -1,10 +1,12 @@
 import { Component, OnInit , Input, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { Columns, Column} from '../api/Columns';
 import { PersonService , Person} from '../services/Person';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { MatSort, MatTableDataSource, MatTable } from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Adress , AdressService} from '../services/Adress';
 import { ListPaneComponent } from '../list-pane/list-pane.component';
+import { HeroService } from '../hero.service';
+import { Commands ,Command} from '../api/Commands';
 
 
 @Component({
@@ -19,11 +21,21 @@ export class PersonComponent<T> implements OnInit {
   displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
   data: Array<Person> = PersonService.createPersons(10);
   dataSource = new MatTableDataSource(this.data);
-  
+  service1: HeroService;
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+
+  addCommands(): Array<Command> {
+    let tem = Commands.create();
+    tem.createCommand('New').call(this.addRow);
+    tem.createCommand('Remove').call(this.removeRow);
+    tem.createCommand('Copy').call(this.copyRow);
+    return tem.getCommads();
+  }
+
 
   addColumns(): Array<Column>{
     this.columns = Columns.create();
@@ -40,7 +52,7 @@ export class PersonComponent<T> implements OnInit {
 
 
   addRow () {
-    this.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
+    this.dataSource.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.sort = this.child.sort;
   }
@@ -63,16 +75,31 @@ export class PersonComponent<T> implements OnInit {
     //this.selectedPerson.birthday = event.value;
   }
 
-  
+  change() {
+    console.log("what!");
+    this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource.sort = this.child.sort;
+    this.changeDetectorRefs.detectChanges();
+    this.changeDetectorRefs.markForCheck();
+  }
+
+  // refresh() {
+  //   this.service1.createPersons(8).subscribe((res) => {
+  //     this.data = res;
+  //     this.teachDS = new LanguageDataSource(this.user.profile.languages.teach);
+  //     this.changeDetectorRefs.detectChanges();
+  //   });
+  // }
   
   constructor(private changeDetectorRefs: ChangeDetectorRef) { }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(ListPaneComponent) child: ListPaneComponent;
-
+  @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit() {
-    
+    this.changeDetectorRefs.detectChanges();
   }
+
 
 }
