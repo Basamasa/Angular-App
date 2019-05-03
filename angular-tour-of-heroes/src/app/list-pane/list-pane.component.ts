@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { Columns } from '../api/Columns';
 import { PersonService, Person } from '../services/Person';
 import { Adress, AdressService } from '../services/Adress';
@@ -34,4 +34,5 @@ export class ListPaneComponent implements OnInit {
     this.changeDetectorRefs.detectChanges;
   }
 
+  
 }

@@ -27,6 +27,9 @@ export class Command {
   isDisabled ():boolean {
     return false
   }
+  getCallBack(){
+    return this.callback;
+  }
   execute () {
     if (this.callback) {
       this.callback(this);

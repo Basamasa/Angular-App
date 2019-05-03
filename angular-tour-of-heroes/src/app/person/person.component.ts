@@ -5,7 +5,6 @@ import { MatSort, MatTableDataSource, MatTable } from '@angular/material';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Adress , AdressService} from '../services/Adress';
 import { ListPaneComponent } from '../list-pane/list-pane.component';
-import { HeroService } from '../hero.service';
 import { Commands ,Command} from '../api/Commands';
 
 
@@ -21,7 +20,6 @@ export class PersonComponent<T> implements OnInit {
   displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
   data: Array<Person> = PersonService.createPersons(10);
   dataSource = new MatTableDataSource(this.data);
-  service1: HeroService;
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,11 +48,18 @@ export class PersonComponent<T> implements OnInit {
     return this.columns.getColumns();
   }
 
-
+  receiveData($event) {
+    let co: Command = $event;
+    console.log(co.getCallBack());
+    var fct = eval("(" + co.getCallBack() + ")");
+    fct();
+    //co.execute();
+  }
   addRow () {
-    this.dataSource.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
-    this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.sort = this.child.sort;
+    let that = this;
+    that.dataSource.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
+    // this.dataSource = new MatTableDataSource(this.data);
+    // this.dataSource.sort = this.child.sort;
   }
 
   removeRow () {
@@ -64,7 +69,16 @@ export class PersonComponent<T> implements OnInit {
   }
 
   copyRow() {
-    this.data.splice(this.child.indexOfSelected, 0, this.child.selectedPerson);
+    let tem1 = new Person (0, "NEW");
+    tem1.id = this.child.selectedPerson.id;
+    tem1.first = this.child.selectedPerson.first;
+    tem1.male = this.child.selectedPerson.male;
+    tem1.nickname = this.child.selectedPerson.nickname;
+    tem1.second = this.child.selectedPerson.second;
+    tem1.paid = this.child.selectedPerson.paid;
+    tem1.city = this.child.selectedPerson.city;
+    tem1.birthday = this.child.selectedPerson.birthday;
+    this.data.splice(this.child.indexOfSelected, 0, tem1);
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.sort = this.child.sort;
   }
@@ -74,14 +88,13 @@ export class PersonComponent<T> implements OnInit {
     //this.data.map(s => if(s === this.selectedPerson){} else );
     //this.selectedPerson.birthday = event.value;
   }
-
   change() {
-    console.log("what!");
-    this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.sort = this.child.sort;
-    this.changeDetectorRefs.detectChanges();
-    this.changeDetectorRefs.markForCheck();
+    // if there's nothing in filter
+    this.dataSource.data = this.data;
+    this.child.dataSource.filter = ' ';
+    this.child.dataSource.filter = '';
   }
+
 
   // refresh() {
   //   this.service1.createPersons(8).subscribe((res) => {

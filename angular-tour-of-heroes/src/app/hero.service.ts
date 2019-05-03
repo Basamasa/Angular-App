@@ -25,23 +25,3 @@ export class Person {
     return this.first
   }
 }
-export class HeroService {
-  createPersons (count:number):Observable<Person> {
-    let persons = new Observable<Person>()
-    let names = ['Reyu', 'Joshi', 'Andy', 'Helen', 'Carlo', 'Peter', 'John']
-    let secondnames = ['Murakami', 'Rudolp', 'Kretschmer', 'Helenbird', 'Carlosoto', 'Peterson', 'Jonson']
-    let nicknames = ['The Flow', 'Rambo', 'Cruncher', 'Delightfull', 'Weired', 'Orderly', 'King']
-    let cities = ['Gothham', 'Berlin', 'New Deli', 'Bejin', 'Rom', 'Budapest', 'New Orleans']
-    for (let index = 0; index < count; index++) {
-      let person = new Person(index, names[index % names.length])
-      person.second = secondnames[index % secondnames.length]
-      person.birthday = new Date(858594654654 + index * 60 * 1000 * 60 * 24)
-      person.paid = '' + index * 245
-      person.nickname = nicknames[index % nicknames.length]
-      person.city = cities[index % cities.length]
-      persons.push(person)
-    }
-    return persons
-  }
-  constructor() { }
-}

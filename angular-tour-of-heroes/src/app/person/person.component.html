@@ -8,7 +8,7 @@
 <button mat-raised-button (click)="copyRow()"> Copy</button>
 </div>
 
-<app-button-pane [commands]="addCommands()" [data]="data" (someEvent)="addRow($event)"></app-button-pane>
+<app-button-pane [commands]="addCommands()" [data]="data" (someEvent)="receiveData($event)"></app-button-pane>
 
 <br><br>
 <app-list-pane [columns]="addColumns()"
@@ -32,7 +32,7 @@
 
  <p> Adress </p>
  <mat-form-field>
-    <input matInput placeholder="First name" [(ngModel)]="item.first" (input) = "change()">
+    <input matInput placeholder="First name" [(ngModel)]="item.first" (input)="change()">
  </mat-form-field>
  &nbsp;
 
