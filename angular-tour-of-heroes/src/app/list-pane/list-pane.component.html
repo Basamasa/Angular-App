@@ -6,6 +6,6 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index;" (click)="selectRow(row,i)"  class="nima" tabindex="0"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index;" (click)="selectRow(row,i);emitCommand();"  class="nima" tabindex="0"></tr>
 </table>
 </div>

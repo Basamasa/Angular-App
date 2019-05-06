@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, ViewChild, Output, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, ChangeDetectorRef, SimpleChanges , EventEmitter} from '@angular/core';
 import { Columns } from '../api/Columns';
 import { PersonService, Person } from '../services/Person';
 import { Adress, AdressService } from '../services/Adress';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
-import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-list-pane',
@@ -18,13 +17,17 @@ export class ListPaneComponent implements OnInit {
   @Input() adressess: Array<Adress>;
   @Input() displayedColumns: string[];
   @Input() dataSource;
-
   @ViewChild(MatSort) sort: MatSort;
+  @Output() someEvent1 = new EventEmitter<Person>();
 
   selectRow(row, i){
     console.log(row , i, this.dataSource.data);
     this.selectedPerson = row;
     this.indexOfSelected = i
+  }
+
+  emitCommand() {
+    this.someEvent1.emit(this.selectedPerson);
   }
 
   constructor(private changeDetectorRefs: ChangeDetectorRef) { }

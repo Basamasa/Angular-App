@@ -6,7 +6,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Adress , AdressService} from '../services/Adress';
 import { ListPaneComponent } from '../list-pane/list-pane.component';
 import { Commands ,Command} from '../api/Commands';
-
+import { Form , Row } from '../api/Form';
 
 @Component({
   selector: 'app-person',
@@ -20,7 +20,7 @@ export class PersonComponent<T> implements OnInit {
   displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
   data: Array<Person> = PersonService.createPersons(10);
   dataSource = new MatTableDataSource(this.data);
-
+  selected: Person;
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -28,12 +28,43 @@ export class PersonComponent<T> implements OnInit {
 
   addCommands(): Array<Command> {
     let tem = Commands.create();
-    tem.createCommand('New').call(this.addRow);
+    tem.createCommand('New').call(this.newRow);
     tem.createCommand('Remove').call(this.removeRow);
     tem.createCommand('Copy').call(this.copyRow);
     return tem.getCommads();
   }
 
+  addForms(): Array<Row> {
+    let form = Form.create();
+      form.newRow()
+        .space().withBottomSpace('10px');
+      form.newRow()
+        .textInput('Id').withSpan(4).build()
+        .checkbox('Male').withSpan(2).withOffset(0).build()
+        .dateInput('Date of Birth', 'birthday').withOffset(2).build();
+      form.newRow()
+        .hr('Adress').withSpan(24).build()
+        .textInput('First').build()
+        .lookup('Second')
+        .withTable(PersonService.createPersons(10))
+        .withColumns(Columns.create()
+          .add('Id').center().build()
+          .add('First').sort(false).build()
+          .add('Second').sort(false).build())
+        .withResultColumn('second');
+      form.newRow()
+        .textInput('City').build()
+        .textInput('Street').build()
+        .textInput('Country').build()
+        .hr('Other').withSpan(24).build()
+        .textInput('Income', 'paid').build();
+      form.newRow()
+        .selectInput('Nickname').withTable(PersonService.createPersons(10)).build()
+        .selectInput('Adress').withTable(AdressService.createAdresses(10)).build();
+      form.newRow()
+        .textArea('Comment').withSpan(24).build();
+      return form.rows;
+  }
 
   addColumns(): Array<Column>{
     this.columns = Columns.create();
@@ -50,16 +81,26 @@ export class PersonComponent<T> implements OnInit {
 
   receiveData($event) {
     let co: Command = $event;
-    console.log(co.getCallBack());
-    var fct = eval("(" + co.getCallBack() + ")");
-    fct();
-    //co.execute();
+    if(co.getLabel() == "New"){
+      this.newRow();
+    }else if(co.getLabel() == "Remove"){
+      this.removeRow();
+    }else{
+      this.copyRow();
+    }
+    //console.log(co.getCallBack());
+    //co.execute(this);
   }
-  addRow () {
-    let that = this;
-    that.dataSource.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
-    // this.dataSource = new MatTableDataSource(this.data);
-    // this.dataSource.sort = this.child.sort;
+
+  receiveData1($event) {
+    this.selected = $event;
+  }
+
+  newRow () {
+    console.log(this.dataSource);
+    this.dataSource.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
+    this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource.sort = this.child.sort;
   }
 
   removeRow () {

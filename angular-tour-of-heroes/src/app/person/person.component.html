@@ -1,20 +1,20 @@
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
 </mat-form-field>
-
-<div>
-<button mat-raised-button (click)="addRow()"> New </button>
-<button mat-raised-button (click)="removeRow()"> Remove </button>
-<button mat-raised-button (click)="copyRow()"> Copy</button>
-</div>
+<br>
 
 <app-button-pane [commands]="addCommands()" [data]="data" (someEvent)="receiveData($event)"></app-button-pane>
 
 <br><br>
 <app-list-pane [columns]="addColumns()"
                [displayedColumns]="displayedColumns"
-               [dataSource]="dataSource"></app-list-pane>
+               [dataSource]="dataSource"
+               (someEvent1)="receiveData1($event)"></app-list-pane>
 <br>
+
+<app-edit-pane [model]="selected" [form]="addForms()"></app-edit-pane>
+
+
 
 <ng-container *ngFor="let item of dataSource.data; let i = index" >
  <div *ngIf="item === child.selectedPerson && i == child.indexOfSelected">

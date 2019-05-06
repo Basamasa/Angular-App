@@ -8,7 +8,7 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 import { ElModule } from 'element-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatNativeDateModule, MatDatepickerModule, MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatSortModule, MatCheckboxModule} from '@angular/material';
+import { MatCardModule , MatGridListModule , MatNativeDateModule, MatDatepickerModule, MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatSortModule, MatCheckboxModule, MatListModule} from '@angular/material';
 import { ListPaneComponent } from './list-pane/list-pane.component';
 import { ButtonPaneComponent } from './button-pane/button-pane.component';
 import { EditPaneComponent } from './edit-pane/edit-pane.component';
@@ -40,7 +40,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule
   ],
 
   providers: [],
