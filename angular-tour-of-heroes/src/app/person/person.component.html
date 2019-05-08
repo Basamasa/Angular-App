@@ -3,14 +3,14 @@
 </mat-form-field>
 <br>
 
-<app-button-pane [commands]="addCommands()" [data]="data" (someEvent)="receiveData($event)"></app-button-pane>
+<app-button-pane [commands]="addCommands()"></app-button-pane>
 
 <br><br>
 <app-list-pane [columns]="addColumns()"
                [displayedColumns]="displayedColumns"
                [dataSource]="dataSource"
                (someEvent1)="receiveData1($event)"></app-list-pane>
-<br>
+
 
 <app-edit-pane [model]="selected" [form]="addForms()"></app-edit-pane>
 

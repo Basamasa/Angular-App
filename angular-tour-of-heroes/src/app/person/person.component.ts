@@ -28,9 +28,9 @@ export class PersonComponent<T> implements OnInit {
 
   addCommands(): Array<Command> {
     let tem = Commands.create();
-    tem.createCommand('New').call(this.newRow);
-    tem.createCommand('Remove').call(this.removeRow);
-    tem.createCommand('Copy').call(this.copyRow);
+    tem.createCommand('New').call((command) => this.newRow(command));
+    tem.createCommand('Remove').call(() => this.removeRow());
+    tem.createCommand('Copy').call(() => this.copyRow());
     return tem.getCommads();
   }
 
@@ -41,7 +41,7 @@ export class PersonComponent<T> implements OnInit {
       form.newRow()
         .textInput('Id').withSpan(4).build()
         .checkbox('Male').withSpan(2).withOffset(0).build()
-        .dateInput('Date of Birth', 'birthday').withOffset(2).build();
+        .dateInput('Birthday').withOffset(2).build();
       form.newRow()
         .hr('Adress').withSpan(24).build()
         .textInput('First').build()
@@ -79,25 +79,13 @@ export class PersonComponent<T> implements OnInit {
     return this.columns.getColumns();
   }
 
-  receiveData($event) {
-    let co: Command = $event;
-    if(co.getLabel() == "New"){
-      this.newRow();
-    }else if(co.getLabel() == "Remove"){
-      this.removeRow();
-    }else{
-      this.copyRow();
-    }
-    //console.log(co.getCallBack());
-    //co.execute(this);
-  }
 
   receiveData1($event) {
     this.selected = $event;
   }
 
-  newRow () {
-    console.log(this.dataSource);
+  newRow (command: Command) {
+    console.log(command);
     this.dataSource.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.sort = this.child.sort;

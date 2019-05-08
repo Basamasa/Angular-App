@@ -1,27 +1,27 @@
 <div *ngIf="model">
 
-<!-- <mat-grid-list cols="5" rowHeight="100px" *ngFor="let row of form">
-  <mat-grid-tile *ngFor="let config of row.configs">
-      <mat-form-field *ngIf="config.type=='text'">
-        <input matInput placeholder="config.placeholder" [(ngModel)]="model[config.key]">
-      </mat-form-field>
-      
-          {{config.label}}
-      
-  </mat-grid-tile>
-</mat-grid-list> -->
-<el-form label-width="100px" [show-icon]="true" [show-message]="true" el-class="form-demo">
-<div el-row gutter="20" *ngFor="let row of form">
-    <div el-col *ngFor="let config of row.configs" [span]="config.span">
-            {{config.label}}
-            <el-input *ngIf="config.type=='text'" [(ngModel)]="model[config.key]"></el-input>
-  
-    </div>
-</div>
-</el-form>
+<mat-grid-list cols="5" rowHeight="100px" *ngFor="let row of form; trackBy:trackByIndex">
+  <mat-grid-tile *ngFor="let config of row.configs; trackBy:trackByIndex">
 
-<button (click)="fuck();">
-   </button>
-{{model.id}}
-   &nbsp;
+      <mat-form-field appearance="outline" *ngIf="config.type=='text'">
+        <mat-label>{{config.label}}</mat-label>
+        <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="config.type=='date'">
+          <input matInput [matDatepicker]="picker" placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker ></mat-datepicker>
+      </mat-form-field>
+
+    
+        <mat-checkbox *ngIf="config.type=='boolean'">Male{{model[config.key]}}</mat-checkbox>
+      
+
+      <hr *ngIf="config.type=='hr'"/>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+
 </div>

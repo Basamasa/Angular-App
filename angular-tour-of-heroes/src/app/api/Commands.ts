@@ -31,9 +31,9 @@ export class Command {
     return this.callback;
   }
   execute () {
+
     if (this.callback) {
       this.callback(this);
-      console.log(this.callback);
     } else {
       console.log("no callback in command: '" + this.label + "'")
     }

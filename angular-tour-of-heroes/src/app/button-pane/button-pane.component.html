@@ -1,5 +1,5 @@
 <span *ngFor="let co of commands; trackBy:trackByIndex">
-<button mat-raised-button  (click)="emitCommand(co);">
+<button mat-raised-button  (click)="co.execute()">
    {{co.label}}
   </button>
   &nbsp;
