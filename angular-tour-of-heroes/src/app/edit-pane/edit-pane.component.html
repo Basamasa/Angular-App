@@ -1,24 +1,47 @@
 <div *ngIf="model">
 
-<mat-grid-list cols="5" rowHeight="100px" *ngFor="let row of form; trackBy:trackByIndex">
-  <mat-grid-tile *ngFor="let config of row.configs; trackBy:trackByIndex">
+<mat-grid-list cols="4" rowHeight="100px" *ngFor="let row of form; trackBy:trackByIndex">
+  <mat-grid-tile *ngFor="let config of row.configs; trackBy:trackByIndex1" >
 
       <mat-form-field appearance="outline" *ngIf="config.type=='text'">
         <mat-label>{{config.label}}</mat-label>
         <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]">
       </mat-form-field>
 
-      <mat-form-field *ngIf="config.type=='date'">
+      <mat-form-field appearance="outline" *ngIf="config.type=='area'">
+          <mat-label>{{config.label}}</mat-label>
+          <textarea matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]"></textarea>
+        </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="config.type=='date'">
           <input matInput [matDatepicker]="picker" placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
 
-    
-        <mat-checkbox *ngIf="config.type=='boolean'">Male{{model[config.key]}}</mat-checkbox>
+      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (change)="handel(config.key)">Male</mat-checkbox>
+
+      <mat-form-field appearance="outline" *ngIf="config.type=='select'">
+          <mat-label>{{config.label}}</mat-label>
+               <mat-select [(value)]=model[config.key]>
+                  <mat-option *ngFor="let ad of config.table; trackBy:trackByIndex" [value]=ad.guiRep().toString()>
+                      {{ad.guiRep()}}
+               </mat-option>
+              </mat-select> 
+      </mat-form-field>
+
+
+      <div *ngIf="config.type=='lookup'">
+          <p>lookup</p>
+           
+      </div>
+
+      
       
 
-      <hr *ngIf="config.type=='hr'"/>
+      <div *ngIf="config.type=='hr'">
+        {{config.label}}
+      </div>
   </mat-grid-tile>
 </mat-grid-list>
 

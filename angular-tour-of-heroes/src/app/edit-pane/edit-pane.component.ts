@@ -12,14 +12,23 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 export class EditPaneComponent implements OnInit {
   @Input() model: Person;
   @Input() form: Array<Row>;
-  
+  checked: Boolean;
   constructor() { }
 
-
+  handel(key){
+    this.model[key] = !this.model[key];
+  }
   trackByIndex(i: number, obj: any) {
     return obj.id;
   }
+  trackByIndex1(i: number, obj: any) {
+    return obj.id;
+  }
+  compareById(f1: Person, f2: Person): boolean {
+    return f1 && f2 && f1.id === f2.id;
+}
   ngOnInit() {
+    
   }
 
 }

@@ -57,7 +57,7 @@ export class PersonComponent<T> implements OnInit {
         .textInput('Street').build()
         .textInput('Country').build()
         .hr('Other').withSpan(24).build()
-        .textInput('Income', 'paid').build();
+        .textInput('Paid').build();
       form.newRow()
         .selectInput('Nickname').withTable(PersonService.createPersons(10)).build()
         .selectInput('Adress').withTable(AdressService.createAdresses(10)).build();
