@@ -7,6 +7,7 @@ import { Adress , AdressService} from '../services/Adress';
 import { ListPaneComponent } from '../list-pane/list-pane.component';
 import { Commands ,Command} from '../api/Commands';
 import { Form , Row } from '../api/Form';
+import { Observable , of , BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-person',
@@ -18,11 +19,13 @@ export class PersonComponent<T> implements OnInit {
   columns: Columns;
   adressess: Array<Adress> = AdressService.createAdresses(8);
   displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
-  data: Array<Person> = PersonService.createPersons(10);
+  data: Person[] = PersonService.createPersons(10);
   dataSource = new MatTableDataSource(this.data);
+  behariorSouce = new BehaviorSubject(this.data);
+  observeSource = of(this.data);
   selected: Person;
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.child.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 
@@ -39,13 +42,13 @@ export class PersonComponent<T> implements OnInit {
       form.newRow()
         .space().withBottomSpace('10px');
       form.newRow()
-        .textInput('Id').withSpan(4).build()
+        .textInput('Id').withSpan(6).build()
         .checkbox('Male').withSpan(2).withOffset(0).build()
-        .dateInput('Birthday').withOffset(2).build();
+        .dateInput('Birthday').withOffset(6).build();
       form.newRow()
         .hr('Adress').withSpan(24).build()
-        .textInput('First').build()
-        .lookup('Second')
+        .textInput('First').withSpan(6).build()
+        .lookup('Second').withSpan(6)
         .withTable(PersonService.createPersons(10))
         .withColumns(Columns.create()
           .add('Id').center().build()
@@ -53,14 +56,14 @@ export class PersonComponent<T> implements OnInit {
           .add('Second').sort(false).build())
         .withResultColumn('second');
       form.newRow()
-        .textInput('City').build()
-        .textInput('Street').build()
-        .textInput('Country').build()
+        .textInput('City').withSpan(6).build()
+        .textInput('Street').withSpan(6).build()
+        .textInput('Country').withSpan(6).build()
         .hr('Other').withSpan(24).build()
-        .textInput('Paid').build();
+        .textInput('Paid').withSpan(6).build();
       form.newRow()
-        .selectInput('Nickname').withTable(PersonService.createPersons(10)).build()
-        .selectInput('Adress').withTable(AdressService.createAdresses(10)).build();
+        .selectInput('Nickname').withSpan(6).withTable(PersonService.createPersons(10)).build()
+        .selectInput('Adress').withSpan(6).withTable(AdressService.createAdresses(10)).build();
       form.newRow()
         .textArea('Comment').withSpan(24).build();
       return form.rows;
@@ -86,15 +89,17 @@ export class PersonComponent<T> implements OnInit {
 
   newRow (command: Command) {
     console.log(command);
-    this.dataSource.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
-    this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.sort = this.child.sort;
+    this.data.splice(this.child.indexOfSelected, 0, new Person (0, "NEW"));
+    this.behariorSouce.next(this.data);
+    //this.dataSource = new MatTableDataSource(this.data);
+    //this.dataSource.sort = this.child.sort;
   }
 
   removeRow () {
     this.data = this.data.filter(s => s != this.child.selectedPerson);
-    this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.sort = this.child.sort;
+    this.behariorSouce.next(this.data);
+    //this.dataSource = new MatTableDataSource(this.data);
+    //this.dataSource.sort = this.child.sort;
   }
 
   copyRow() {
@@ -108,8 +113,9 @@ export class PersonComponent<T> implements OnInit {
     tem1.city = this.child.selectedPerson.city;
     tem1.birthday = this.child.selectedPerson.birthday;
     this.data.splice(this.child.indexOfSelected, 0, tem1);
-    this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.sort = this.child.sort;
+    this.behariorSouce.next(this.data);
+    //this.dataSource = new MatTableDataSource(this.data);
+    //this.dataSource.sort = this.child.sort;
   }
 
   addEvent(event: MatDatepickerInputEvent<Date>) {
@@ -117,21 +123,7 @@ export class PersonComponent<T> implements OnInit {
     //this.data.map(s => if(s === this.selectedPerson){} else );
     //this.selectedPerson.birthday = event.value;
   }
-  change() {
-    // if there's nothing in filter
-    this.dataSource.data = this.data;
-    this.child.dataSource.filter = ' ';
-    this.child.dataSource.filter = '';
-  }
-
-
-  // refresh() {
-  //   this.service1.createPersons(8).subscribe((res) => {
-  //     this.data = res;
-  //     this.teachDS = new LanguageDataSource(this.user.profile.languages.teach);
-  //     this.changeDetectorRefs.detectChanges();
-  //   });
-  // }
+  
   
   constructor(private changeDetectorRefs: ChangeDetectorRef) { }
 

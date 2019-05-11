@@ -1,4 +1,5 @@
-<mat-form-field>
+<mat-form-field appearance="outline" >
+  <mat-label>Search</mat-label>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
 </mat-form-field>
 <br>
@@ -8,7 +9,7 @@
 <br><br>
 <app-list-pane [columns]="addColumns()"
                [displayedColumns]="displayedColumns"
-               [dataSource]="dataSource"
+               [ob]="behariorSouce"
                (someEvent1)="receiveData1($event)"></app-list-pane>
 
 
@@ -16,54 +17,3 @@
 
 
 
-<ng-container *ngFor="let item of dataSource.data; let i = index" >
- <div *ngIf="item === child.selectedPerson && i == child.indexOfSelected">
-   <mat-form-field>
-    <input matInput placeholder="Id" [(ngModel)]="item.id">
-   </mat-form-field>
- &nbsp;
- <mat-form-field>
-   <input matInput [matDatepicker]="picker" placeholder="Data of birth" [(ngModel)]="item.birthday" (dateInput)="addEvent($event)">
-   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-   <mat-datepicker #picker ></mat-datepicker>
- </mat-form-field>
- &nbsp;
- <mat-checkbox>Male</mat-checkbox>
-
- <p> Adress </p>
- <mat-form-field>
-    <input matInput placeholder="First name" [(ngModel)]="item.first" (input)="change()">
- </mat-form-field>
- &nbsp;
-
- <mat-form-field>
-    <input matInput placeholder="Second name" [(ngModel)]="item.second">
- </mat-form-field>
- &nbsp;
- <mat-form-field>
-    <input matInput placeholder="City" [(ngModel)]="item.city">
- </mat-form-field>
- &nbsp;
-
- <p> Other </p>
- <mat-form-field>
-    <input matInput placeholder="Income" [(ngModel)]="item.paid">
- </mat-form-field>
- &nbsp;
-
- <mat-form-field>
-    <input matInput placeholder="Nickname" [(ngModel)]="item.second">
- </mat-form-field>
- &nbsp;
- <mat-form-field>
-    <mat-label>Adress</mat-label>
-    <mat-select>
-        <mat-option *ngFor="let ad of adressess" [value]="ad.guiRep">
-            {{ad.guiRep()}}
-          </mat-option>
-    </mat-select>
-  </mat-form-field>
- &nbsp;
-<p>{{item.id}}</p>
- </div>
-</ng-container>

@@ -1,27 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
-import { Observable } from 'rxjs';
+import { Observable , of} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 
-export class Person {
-  id = 0;
-  first = '';
-  second = '';
-  paid='0';
-  nickname = '';
-  city = '';
-  male=false;
-  birthday:Date;
+export class HeroService {
 
-  constructor (id: number, first: string) {
-    this.id = id
-    this.first = first
-  }
-
-  guiRep () {
-    return this.first
+  constructor() { }
+  
+  getHeroes(): Observable<Hero[]> {
+    return of(HEROES);
   }
 }

@@ -13,6 +13,7 @@ import { ListPaneComponent } from './list-pane/list-pane.component';
 import { ButtonPaneComponent } from './button-pane/button-pane.component';
 import { EditPaneComponent } from './edit-pane/edit-pane.component';
 import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule }    from '@angular/common/http';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     MatListModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    HttpClientModule
   ],
 
   providers: [],

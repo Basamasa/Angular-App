@@ -1,11 +1,11 @@
 <div *ngIf="model">
 
-<mat-grid-list cols="4" rowHeight="100px" *ngFor="let row of form; trackBy:trackByIndex">
-  <mat-grid-tile *ngFor="let config of row.configs; trackBy:trackByIndex1" >
+<mat-grid-list cols="24" rowHeight="1:2" *ngFor="let row of form; trackBy:trackByIndex">
+  <mat-grid-tile *ngFor="let config of row.configs; trackBy:trackByIndex1" [colspan]="config.span">
 
       <mat-form-field appearance="outline" *ngIf="config.type=='text'">
         <mat-label>{{config.label}}</mat-label>
-        <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]">
+        <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (keypress)="valuechange($event)">
       </mat-form-field>
 
       <mat-form-field appearance="outline" *ngIf="config.type=='area'">
