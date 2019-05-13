@@ -24,6 +24,7 @@ export class PersonComponent<T> implements OnInit {
   behariorSouce = new BehaviorSubject(this.data);
   observeSource = of(this.data);
   selected: Person;
+  hello: any;
   applyFilter(filterValue: string) {
     this.child.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -85,6 +86,11 @@ export class PersonComponent<T> implements OnInit {
 
   receiveData1($event) {
     this.selected = $event;
+  }
+
+  test($event) {
+    this.hello = $event;
+    this.child.butt();
   }
 
   newRow (command: Command) {

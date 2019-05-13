@@ -33,6 +33,7 @@ export class ListPaneComponent implements OnInit {
 
   butt() {
     let tem1 = new Person (0, "NEW");
+    console.log(this.selectedPerson);
     tem1.id = this.selectedPerson.id;
     tem1.first = this.selectedPerson.first;
     tem1.male = this.selectedPerson.male;
@@ -57,6 +58,5 @@ export class ListPaneComponent implements OnInit {
     this.changeDetectorRefs.detectChanges();});
     this.dataSource.sort = this.sort;
   }
-
   
 }

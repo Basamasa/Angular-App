@@ -1,4 +1,4 @@
-import { Component, OnInit , Input , ViewChild} from '@angular/core';
+import { Component, OnInit , Input , ViewChild, EventEmitter, Output} from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { Form, Row } from '../api/Form';
 import { Person } from '../services/Person';
@@ -11,8 +11,12 @@ import { ListPaneComponent } from '../list-pane/list-pane.component';
   styleUrls: ['./edit-pane.component.css']
 })
 export class EditPaneComponent implements OnInit {
+  @ViewChild("ListPaneComponent") listPane: ListPaneComponent;
   @Input() model: Person;
   @Input() form: Array<Row>;
+
+  @Output() test = new EventEmitter<any>();
+
   checked: Boolean;
   constructor() { }
 
@@ -30,10 +34,9 @@ export class EditPaneComponent implements OnInit {
   }
 
   valuechange($event){
-    console.log("ok where");
-    //this.listPane.butt();
+    this.test.emit($event);
   }
-  @ViewChild(ListPaneComponent) listPane: ListPaneComponent;
+
   ngOnInit() {
     
   }

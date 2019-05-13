@@ -5,8 +5,10 @@
 
       <mat-form-field appearance="outline" *ngIf="config.type=='text'">
         <mat-label>{{config.label}}</mat-label>
-        <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (keypress)="valuechange($event)">
+        <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)">
       </mat-form-field>
+      
+      <!--https://github.com/angular/angular/issues/3406#issuecomment-233206800-->
 
       <mat-form-field appearance="outline" *ngIf="config.type=='area'">
           <mat-label>{{config.label}}</mat-label>
@@ -19,7 +21,7 @@
           <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
 
-      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (change)="handel(config.key)">Male</mat-checkbox>
+      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (ngModelChange)="handel(config.key)">Male</mat-checkbox>
 
       <mat-form-field appearance="outline" *ngIf="config.type=='select'">
           <mat-label>{{config.label}}</mat-label>

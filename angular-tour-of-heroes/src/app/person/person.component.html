@@ -13,7 +13,7 @@
                (someEvent1)="receiveData1($event)"></app-list-pane>
 
 
-<app-edit-pane [model]="selected" [form]="addForms()"></app-edit-pane>
+<app-edit-pane (test)="test($event)" [model]="selected" [form]="addForms()"></app-edit-pane>
 
 
 
