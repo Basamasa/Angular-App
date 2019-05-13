@@ -1,4 +1,5 @@
 import { Columns } from './Columns'
+import { Person } from '../services/Person';
 
 export class ComponentConfig {
     labelWidth = '7em';
@@ -10,7 +11,7 @@ export class ComponentConfig {
     resultColumn= 'id';
     placeHolder: string = '';
     bottomSpace!: string;
-    table!: Object;
+    table!: [Person];
     columns!: Columns;
     build!: Function;
 

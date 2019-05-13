@@ -12,20 +12,20 @@
 
       <mat-form-field appearance="outline" *ngIf="config.type=='area'">
           <mat-label>{{config.label}}</mat-label>
-          <textarea matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]"></textarea>
+          <textarea matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)"></textarea>
         </mat-form-field>
 
       <mat-form-field appearance="outline" *ngIf="config.type=='date'">
-          <input matInput [matDatepicker]="picker" placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]">
+          <input matInput [matDatepicker]="picker" placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
 
-      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (ngModelChange)="handel(config.key)">Male</mat-checkbox>
+      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (click)="handel(config.key);valuechange($event);">Male</mat-checkbox>
 
       <mat-form-field appearance="outline" *ngIf="config.type=='select'">
           <mat-label>{{config.label}}</mat-label>
-               <mat-select [(value)]=model[config.key]>
+               <mat-select [(ngModel)]=model[config.key] (ngModelChange)="valuechange($event)">
                   <mat-option *ngFor="let ad of config.table; trackBy:trackByIndex" [value]=ad.guiRep().toString()>
                       {{ad.guiRep()}}
                </mat-option>
@@ -33,10 +33,10 @@
       </mat-form-field>
 
 
-      <div *ngIf="config.type=='lookup'">
-          <p>lookup</p>
-           
-      </div>
+      <mat-form-field appearance="outline" *ngIf="config.type=='lookup'">
+          <mat-label>{{config.label}}</mat-label>
+          <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)" (click)="openDialog()">
+      </mat-form-field>
 
       
       

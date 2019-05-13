@@ -11,9 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule , MatGridListModule , MatNativeDateModule, MatDatepickerModule, MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatSortModule, MatCheckboxModule, MatListModule} from '@angular/material';
 import { ListPaneComponent } from './list-pane/list-pane.component';
 import { ButtonPaneComponent } from './button-pane/button-pane.component';
-import { EditPaneComponent } from './edit-pane/edit-pane.component';
+import { EditPaneComponent, DialogOverviewExampleDialog } from './edit-pane/edit-pane.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule }    from '@angular/common/http';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -23,8 +24,10 @@ import { HttpClientModule }    from '@angular/common/http';
     routingComponents,
     ListPaneComponent,
     ButtonPaneComponent,
-    EditPaneComponent
+    EditPaneComponent,
+    DialogOverviewExampleDialog
   ],
+  entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -45,7 +48,8 @@ import { HttpClientModule }    from '@angular/common/http';
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
 
   providers: [],
