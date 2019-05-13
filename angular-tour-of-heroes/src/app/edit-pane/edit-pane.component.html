@@ -21,7 +21,7 @@
           <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
 
-      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (click)="handel(config.key);valuechange($event);">Male</mat-checkbox>
+      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (change)="handel(config.key);valuechange($event);">Male</mat-checkbox>
 
       <mat-form-field appearance="outline" *ngIf="config.type=='select'">
           <mat-label>{{config.label}}</mat-label>
@@ -33,7 +33,7 @@
       </mat-form-field>
 
 
-      <mat-form-field appearance="outline" *ngIf="config.type=='lookup'">
+      <mat-form-field appearance="outline" *ngIf="config.type=='lookup';">
           <mat-label>{{config.label}}</mat-label>
           <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)" (click)="openDialog()">
       </mat-form-field>

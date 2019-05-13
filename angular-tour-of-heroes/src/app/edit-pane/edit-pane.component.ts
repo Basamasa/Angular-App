@@ -52,7 +52,7 @@ export class EditPaneComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '300px',
+      width: '280px',
       data: {table: this.table, columns: this.columns, displayColumns: this.displayColumns}
     });
 
