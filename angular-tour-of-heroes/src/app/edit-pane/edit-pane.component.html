@@ -1,52 +1,23 @@
 <div *ngIf="model">
 
-<mat-grid-list cols="24" rowHeight="1:2" *ngFor="let row of form; trackBy:trackByIndex">
-  <mat-grid-tile *ngFor="let config of row.configs; trackBy:trackByIndex1" [colspan]="config.span">
-
-      <mat-form-field appearance="outline" *ngIf="config.type=='text'">
-        <mat-label>{{config.label}}</mat-label>
-        <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)">
-      </mat-form-field>
-      
-      <!--https://github.com/angular/angular/issues/3406#issuecomment-233206800-->
-
-      <mat-form-field appearance="outline" *ngIf="config.type=='area'">
-          <mat-label>{{config.label}}</mat-label>
-          <textarea matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)"></textarea>
-        </mat-form-field>
-
-      <mat-form-field appearance="outline" *ngIf="config.type=='date'">
-          <input matInput [matDatepicker]="picker" placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker ></mat-datepicker>
-      </mat-form-field>
-
-      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (change)="handel(config.key);valuechange($event);">Male</mat-checkbox>
-
-      <mat-form-field appearance="outline" *ngIf="config.type=='select'">
-          <mat-label>{{config.label}}</mat-label>
-               <mat-select [(ngModel)]=model[config.key] (ngModelChange)="valuechange($event)">
-                  <mat-option *ngFor="let ad of config.table; trackBy:trackByIndex" [value]=ad.guiRep().toString()>
-                      {{ad.guiRep()}}
-               </mat-option>
-              </mat-select> 
-      </mat-form-field>
-
-
-      <mat-form-field appearance="outline" *ngIf="config.type=='lookup';">
-          <mat-label>{{config.label}}</mat-label>
-          <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)" (click)="openDialog()">
-      </mat-form-field>
-
-      
-      
-
-      <div *ngIf="config.type=='hr'">
-        {{config.label}}
-      </div>
-  </mat-grid-tile>
-</mat-grid-list>
-
-
-
-</div>
+  <el-form [label-position]="left" size="small">
+    <div el-row *ngFor="let row of form; trackBy:trackByIndex">
+      <div el-col *ngFor="let config of row.configs; trackBy:trackByIndex1" span="{{config.span}}">
+        <el-form-item label="{{config.label}}" [ngStyle]="{'margin-bottom': config.bottomSpace}" label-width={{config.labelWidth}}> 
+            <el-input *ngIf="config.type=='text'" placeholder={{config.placeholder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)"></el-input>
+            <el-input type="textarea" *ngIf="config.type=='area'" placeholder={{config.placeholder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)"></el-input>
+            <el-date-picker *ngIf="config.type=='date'" placeholder={{config.placeholder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)"></el-date-picker>
+            <el-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (change)="handel(config.key);valuechange($event);"></el-checkbox>
+            <el-select placeholder={{config.placeholder}} *ngIf="config.type=='select'" [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)">
+              <el-option *ngFor="let ad of config.table; trackBy:trackByIndex" label={{ad.guiRep()}} value={{ad.guiRep()}} ></el-option>
+            </el-select>
+            <el-input *ngIf="config.type=='lookup';" placeholder={{config.placeholder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)" (click)="openDialog()"></el-input>
+          
+            <hr *ngIf="config.type=='hr'" />
+        </el-form-item>
+        </div>
+    </div>
+  </el-form>
+  
+  
+  </div>
