@@ -19,7 +19,7 @@ export class PersonComponent<T> implements OnInit {
   columns: Columns;
   adressess: Array<Adress> = AdressService.createAdresses(8);
   displayedColumns: string[] = ['id', 'first', 'second', 'paid', 'nickname' , 'city', 'male', 'birthday'];
-  data: Person[] = PersonService.createPersons(10);
+  data: Person[] = PersonService.createPersons(500);
   dataSource = new MatTableDataSource(this.data);
   behariorSouce = new BehaviorSubject(this.data);
   observeSource = of(this.data);
