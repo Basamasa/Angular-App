@@ -23,6 +23,7 @@ export class ListPaneComponent implements OnInit {
   @Input() ob : BehaviorSubject<Person[]>;
   @ViewChild(MatSort) sort: MatSort;
   @Output() someEvent1 = new EventEmitter<Person>();
+  highlightedRows: Person;
 
   selectRow(row, i){
     console.log(row , i, this.dataSource.data);

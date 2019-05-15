@@ -10,18 +10,8 @@ table {
     height: 0;
   }
   
-  .nima:hover {
-    background: #638b88;
-  }
+ 
   
-  .nima:active {
-    background: #638b88;
-  }
-
-  .nima:focus {
-    background-color: #638b88;
-    outline: 0; /*remove outline*/
-  }
   
   .mat-form-field {
     font-size: 14px;
