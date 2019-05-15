@@ -13,7 +13,7 @@ export class Person {
       this.first = first
     }
 
-    guiRep () {
+    guiRep () : string{
       return this.first
     }
 }

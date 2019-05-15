@@ -41,8 +41,6 @@ export class PersonComponent<T> implements OnInit {
   addForms(): Array<Row> {
     let form = Form.create();
       form.newRow()
-        .space().withBottomSpace('10px');
-      form.newRow()
         .textInput('Id').withSpan(6).build()
         .checkbox('Male').withSpan(2).withOffset(0).build()
         .dateInput('Birthday').withOffset(6).build();

@@ -1,48 +1,49 @@
 <div *ngIf="model">
 
-<mat-grid-list cols="24" rowHeight="1:2" *ngFor="let row of form; trackBy:trackByIndex">
+<mat-grid-list cols="24" rowHeight="65" *ngFor="let row of form; trackBy:trackByIndex">
   <mat-grid-tile *ngFor="let config of row.configs; trackBy:trackByIndex1" [colspan]="config.span">
 
-      <mat-form-field appearance="outline" *ngIf="config.type=='text'">
+      <mat-form-field appearance="outline" *ngIf="config.type=='text'"  class="comment-inside-grid">
         <mat-label>{{config.label}}</mat-label>
-        <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)">
+        <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)" >
       </mat-form-field>
       
       <!--https://github.com/angular/angular/issues/3406#issuecomment-233206800-->
 
-      <mat-form-field appearance="outline" *ngIf="config.type=='area'">
+      <mat-form-field appearance="outline" *ngIf="config.type=='area'" class="comment-inside-grid">
           <mat-label>{{config.label}}</mat-label>
           <textarea matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)"></textarea>
         </mat-form-field>
 
-      <mat-form-field appearance="outline" *ngIf="config.type=='date'">
+      <mat-form-field appearance="outline" *ngIf="config.type=='date'"  class="comment-inside-grid">
           <input matInput [matDatepicker]="picker" placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker ></mat-datepicker>
       </mat-form-field>
 
-      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (change)="handel(config.key);valuechange($event);">Male</mat-checkbox>
+      <mat-checkbox *ngIf="config.type=='boolean'" [checked]="model[config.key]" (change)="handel(config.key);valuechange($event);"  class="check-inside-grid">Male</mat-checkbox>
 
-      <mat-form-field appearance="outline" *ngIf="config.type=='select'">
+      <mat-form-field appearance="outline" *ngIf="config.type=='select'"  class="comment-inside-grid">
           <mat-label>{{config.label}}</mat-label>
-               <mat-select [(ngModel)]=model[config.key] (ngModelChange)="valuechange($event)">
-                  <mat-option *ngFor="let ad of config.table; trackBy:trackByIndex" [value]=ad.guiRep().toString()>
+               <mat-select [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)">
+                  <mat-option *ngFor="let ad of config.table; trackBy:trackByIndex" [value]="ad.guiRep().toString()">
                       {{ad.guiRep()}}
                </mat-option>
               </mat-select> 
       </mat-form-field>
 
 
-      <mat-form-field appearance="outline" *ngIf="config.type=='lookup';">
+      <mat-form-field appearance="outline" *ngIf="config.type=='lookup';"  class="comment-inside-grid">
           <mat-label>{{config.label}}</mat-label>
           <input matInput placeholder={{config.placeHolder}} [(ngModel)]="model[config.key]" (ngModelChange)="valuechange($event)" (click)="openDialog()">
       </mat-form-field>
-
+ 
       
       
 
-      <div *ngIf="config.type=='hr'">
-        {{config.label}}
+      <div *ngIf="config.type=='hr'" class="text-inside-grid">
+          <p style="font-weight:bold"> {{config.label}}</p>
+       
       </div>
   </mat-grid-tile>
 </mat-grid-list>

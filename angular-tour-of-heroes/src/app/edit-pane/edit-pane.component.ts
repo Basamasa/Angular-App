@@ -36,6 +36,10 @@ export class EditPaneComponent implements OnInit {
   constructor(public dialog: MatDialog) {
     
    }
+   compareObjects(o1: any, o2: any): boolean {
+     console.log("how?")
+    return o1.toString() == o2.toString();
+}
 
   handel(key){
     this.model[key] = !this.model[key];
