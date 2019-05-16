@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Commands, Command } from '../api/Commands'
-import { DataSource } from '@angular/cdk/table';
+import { Component, OnInit, Input } from '@angular/core';
+import { Commands } from '../api/Commands'
 
 @Component({
   selector: 'app-button-pane',

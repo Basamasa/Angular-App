@@ -1,12 +1,10 @@
-import { Component, OnInit, Input, ViewChild, Output, ChangeDetectorRef, SimpleChanges , EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, ChangeDetectorRef, EventEmitter} from '@angular/core';
 import { Columns } from '../api/Columns';
-import { PersonService, Person } from '../services/Person';
-import { Adress, AdressService } from '../services/Adress';
+import { Person } from '../services/Person';
+import { Adress } from '../services/Adress';
 import { MatSort, MatTableDataSource } from '@angular/material';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
-import { Observable , of, BehaviorSubject } from 'rxjs';
-import { copyAnimationEvent } from '@angular/animations/browser/src/render/shared';
-import { Button } from 'protractor';
+import { BehaviorSubject } from 'rxjs';
+
 @Component({
   selector: 'app-list-pane',
   templateUrl: './list-pane.component.html',
